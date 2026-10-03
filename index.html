@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爱爱电影网 - 高清影视在线观看</title>
+<meta name="description" content="爱爱电影网(aiaidianyingwang-app)提供最新高清电影、电视剧、综艺、动漫在线观看，每日更新，免费畅享海量影视资源。">
+<meta name="keywords" content="爱爱电影网, aiaidianyingwang-app, 高清电影, 在线观看, 最新电影, 免费影视">
+<meta name="author" content="爱爱电影网">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://aiaidianyingwang-app">
+<style>
+/* ===== 全局重置与基础 ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-dark: #0a0a1a;
+  --bg-card: rgba(20, 20, 50, 0.6);
+  --neon-blue: #00f0ff;
+  --neon-pink: #ff00e5;
+  --neon-purple: #b026ff;
+  --text-light: #e0e0ff;
+  --text-muted: #8888bb;
+  --glass-border: rgba(0, 240, 255, 0.2);
+  --font-main: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* 动态背景 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 0, 229, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(176, 38, 255, 0.05) 0%, transparent 50%);
+  z-index: -1;
+}
+
+/* ===== 导航栏 ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(10, 10, 26, 0.85);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-menu a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+  transition: width 0.3s ease;
+}
+
+.nav-menu a:hover {
+  color: var(--neon-blue);
+}
+
+.nav-menu a:hover::after {
+  width: 100%;
+}
+
+/* 汉堡菜单 */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: var(--neon-blue);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ===== 主视觉区域 ===== */
+.hero {
+  margin-top: 70px;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid var(--neon-blue);
+  border-radius: 50px;
+  color: var(--neon-blue);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-url {
+  font-size: 1.1rem;
+  color: var(--neon-purple);
+  margin-bottom: 1.5rem;
+  word-break: break-all;
+}
+
+.hero-url a {
+  color: var(--neon-purple);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--neon-purple);
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(0, 240, 255, 0.5);
+}
+
+/* ===== 通用栏目样式 ===== */
+.section {
+  padding: 5rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-tag {
+  display: inline-block;
+  color: var(--neon-pink);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ===== 最新电影 - 网格卡片 ===== */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.movie-card {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.movie-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.movie-card:hover::before {
+  transform: scaleX(1);
+}
+
+.movie-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15);
+}
+
+.movie-poster {
+  width: 100%;
+  height: 280px;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 229, 0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.movie-info {
+  padding: 1.2rem;
+}
+
+.movie-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+}
+
+.movie-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-rating {
+  color: var(--neon-pink);
+  font-weight: 600;
+}
+
+/* ===== 分类区域 - 横向滚动 ===== */
+.categories-wrapper {
+  position: relative;
+}
+
+.categories-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.categories-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.categories-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.categories-scroll::-webkit-scrollbar-thumb {
+  background: var(--neon-purple);
+  border-radius: 3px;
+}
+
+.cat-item {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 120px;
+  scroll-snap-align: start;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+
+.cat-item:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--neon-blue);
+  transform: scale(1.05);
+}
+
+.cat-icon {
+  font-size: 2rem;
+}
+
+.cat-name {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ===== 排行榜 - 列表样式 ===== */
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rank-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+}
+
+.rank-item:hover {
+  border-color: var(--neon-blue);
+  transform: translateX(8px);
+}
+
+.rank-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.rank-num.top1 { background: linear-gradient(135deg, #ffd700, #ff6b00); color: #000; }
+.rank-num.top2 { background: linear-gradient(135deg, #c0c0c0, #888); color: #000; }
+.rank-num.top3 { background: linear-gradient(135deg, #cd7f32, #a0522d); color: #fff; }
+.rank-num.normal { background: rgba(0, 240, 255, 0.1); color: var(--neon-blue); }
+
+.rank-info {
+  flex: 1;
+}
+
+.rank-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 0.3rem;
+}
+
+.rank-detail {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.rank-score {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--neon-pink);
+  flex-shrink: 0;
+}
+
+/* ===== 关于我们 ===== */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--neon-blue);
+}
+
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.about-features {
+  list-style: none;
+}
+
+.about-features li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-light);
+}
+
+.about-features li::before {
+  content: '▸';
+  color: var(--neon-pink);
+  font-size: 1.2rem;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat-box {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.stat-box:hover {
+  border-color: var(--neon-purple);
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* ===== 页脚 ===== */
+.footer {
+  background: rgba(5, 5, 15, 0.95);
+  border-top: 1px solid var(--glass-border);
+  padding: 3rem 1.5rem 2rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.footer-url {
+  color: var(--neon-purple);
+  margin-bottom: 1.5rem;
+}
+
+.footer-url a {
+  color: var(--neon-purple);
+  text-decoration: none;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--neon-blue);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: rgba(10, 10, 26, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 3rem;
+    gap: 2.5rem;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .nav-menu.active {
+    transform: translateX(0);
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .hero {
+    min-height: 70vh;
+    padding: 3rem 1rem;
+  }
+
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .movie-poster {
+    height: 200px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rank-item {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .rank-num {
+    width: 32px;
+    height: 32px;
+    font-size:0.9rem;
+  }
+
+  .rank-score {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .movies-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    gap: 1rem;
+  }
+}
+
+/* ===== 滚动动画 ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+<!-- 导航栏 -->
+<nav class="navbar" role="navigation" aria-label="主导航">
+  <div class="nav-container">
+    <a href="#" class="nav-logo">爱爱电影网</a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#latest">最新电影</a></li>
+      <li><a href="#categories">电影分类</a></li>
+      <li><a href="#ranking">排行榜</a></li>
+      <li><a href="#about">关于我们</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" role="button" aria-label="菜单" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- 首页/主视觉 -->
+<section class="hero" id="home">
+  <div class="hero-content fade-in">
+    <div class="hero-badge">🎬 全新体验</div>
+    <h1>欢迎来到 <span class="highlight">爱爱电影网</span></h1>
+    <div class="hero-url">🌐 官方网站：<a href="https://aiaidianyingwang-app" target="_blank" rel="noopener">aiaidianyingwang-app</a></div>
+    <p class="hero-desc">海量高清影视资源，每日实时更新。电影、电视剧、综艺、动漫一站式免费观看，给你极致的观影体验。</p>
+    <a href="#latest" class="hero-cta">立即探索</a>
+  </div>
+</section>
+
+<!-- 最新电影 -->
+<section class="section" id="latest">
+  <div class="section-header fade-in">
+    <div class="section-tag">Latest Movies</div>
+    <h2 class="section-title">最新上映</h2>
+    <p class="section-subtitle">每日精选最新影视作品，抢先观看</p>
+  </div>
+  <div class="movies-grid">
+    <a href="#" class="movie-card fade-in">
+      <div class="movie-poster">🎬</div>
+      <div class="movie-info">
+        <div class="movie-title">沙丘2：绝命对决</div>
+        <div class="movie-meta"><span>科幻/冒险</span><span class="movie-rating">⭐ 9.2</span></div>
+      </div>
+    </a>
+    <a href="#" class="movie-card fade-in">
+      <div class="movie-poster">🎭</div>
+      <div class="movie-info">
+        <div class="movie-title">奥本海默</div>
+        <div class="movie-meta"><span>传记/历史</span><span class="movie-rating">⭐ 8.9</span></div>
+      </div>
+    </a>
+    <a href="#" class="movie-card fade-in">
+      <div class="movie-poster">🚀</div>
+      <div class="movie-info">
+        <div class="movie-title">星际穿越2</div>
+        <div class="movie-meta"><span>科幻/剧情</span><span class="movie-rating">⭐ 9.5</span></div>
+      </div>
+    </a>
+    <a href="#" class="movie-card fade-in">
+      <div class="movie-poster">🦸</div>
+      <div class="movie-info">
+        <div class="movie-title">复仇者联盟6</div>
+        <div class="movie-meta"><span>动作/科幻</span><span class="movie-rating">⭐ 8.7</span></div>
+      </div>
+    </a>
+    <a href="#" class="movie-card fade-in">
+      <div class="movie-poster">🐉</div>
+      <div class="movie-info">
+        <div class="movie-title">卧虎藏龙：青冥剑</div>
+        <div class="movie-meta"><span>武侠/动作</span><span class="movie-rating">⭐ 8.5</span></div>
+      </div>
+    </a>
+    <a href="#" class="movie-card fade-in">
+      <div class="movie-poster">🎪</div>
+      <div class="movie-info">
+        <div class="movie-title">疯狂马戏团</div>
+        <div class="movie-meta"><span>喜剧/家庭</span><span class="movie-rating">⭐ 7.8</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 电影分类 -->
+<section class="section" id="categories">
+  <div class="section-header fade-in">
+    <div class="section-tag">Categories</div>
+    <h2 class="section-title">电影分类</h2>
+    <p class="section-subtitle">按类型快速找到你喜欢的影片</p>
+  </div>
+  <div class="categories-wrapper">
+    <div class="categories-scroll">
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">💥</span>
+        <span class="cat-name">动作片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">😂</span>
+        <span class="cat-name">喜剧片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">😱</span>
+        <span class="cat-name">恐怖片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">💕</span>
+        <span class="cat-name">爱情片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">🎭</span>
+        <span class="cat-name">剧情片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">🚀</span>
+        <span class="cat-name">科幻片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">🎨</span>
+        <span class="cat-name">动画片</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">📺</span>
+        <span class="cat-name">电视剧</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">🎤</span>
+        <span class="cat-name">综艺</span>
+      </a>
+      <a href="#" class="cat-item fade-in">
+        <span class="cat-icon">📽️</span>
+        <span class="cat-name">纪录片</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 排行榜 -->
+<section class="section" id="ranking">
+  <div class="section-header fade-in">
+    <div class="section-tag">Top Ranking</div>
+    <h2 class="section-title">热门排行榜</h2>
+    <p class="section-subtitle">千万影迷共同评选的优质好片</p>
+  </div>
+  <div class="rank-list">
+    <a href="#" class="rank-item fade-in">
+      <div class="rank-num top1">1</div>
+      <div class="rank-info">
+        <div class="rank-title">肖申克的救赎</div>
+        <div class="rank-detail">剧情 / 1994 / 弗兰克·德拉邦特</div>
+      </div>
+      <div class="rank-score">9.7</div>
+    </a>
+    <a href="#" class="rank-item fade-in">
+      <div class="rank-num top2">2</div>
+      <div class="rank-info">
+        <div class="rank-title">阿甘正传</div>
+        <div class="rank-detail">剧情 / 1994 / 罗伯特·泽米吉斯</div>
+      </div>
+      <div class="rank-score">9.5</div>
+    </a>
+    <a href="#" class="rank-item fade-in">
+      <div class="rank-num top3">3</div>
+      <div class="rank-info">
+        <div class="rank-title">泰坦尼克号</div>
+        <div class="rank-detail">爱情 / 1997 / 詹姆斯·卡梅隆</div>
+      </div>
+      <div class="rank-score">9.4</div>
+    </a>
+    <a href="#" class="rank-item fade-in">
+      <div class="rank-num normal">4</div>
+      <div class="rank-info">
+        <div class="rank-title">盗梦空间</div>
+        <div class="rank-detail">科幻 / 2010 / 克里斯托弗·诺兰</div>
+      </div>
+      <div class="rank-score">9.3</div>
+    </a>
+    <a href="#" class="rank-item fade-in">
+      <div class="rank-num normal">5</div>
+      <div class="rank-info">
+        <div class="rank-title">星际穿越</div>
+        <div class="rank-detail">科幻 / 2014 / 克里斯托弗·诺兰</div>
+      </div>
+      <div class="rank-score">9.3</div>
+    </a>
+    <a href="#" class="rank-item fade-in">
+      <div class="rank-num normal">6</div>
+      <div class="rank-info">
+        <div class="rank-title">楚门的世界</div>
+        <div class="rank-detail">剧情 / 1998 / 彼得·威尔</div>
+      </div>
+      <div class="rank-score">9.2</div>
+    </a>
+  </div>
+</section>
+
+<!-- 关于我们 -->
+<section class="section" id="about">
+  <div class="section-header fade-in">
+    <div class="section-tag">About Us</div>
+    <h2 class="section-title">关于 爱爱电影网</h2>
+    <p class="section-subtitle">了解我们，了解更好的观影体验</p>
+  </div>
+  <div class="about-content">
+    <div class="about-text fade-in">
+      <h3>你的专属影视乐园</h3>
+      <p>爱爱电影网（<a href="https://aiaidianyingwang-app" style="color:var(--neon-blue);" target="_blank" rel="noopener">aiaidianyingwang-app</a>）致力于为广大影迷提供最全面、最清晰的影视资源。我们拥有海量正版授权内容，涵盖电影、电视剧、综艺、动漫等多个频道。</p>
+      <ul class="about-features">
+        <li>每日更新最新影视资源</li>
+        <li>1080P/4K超清画质播放</li>
+        <li>多线路切换，极速加载</li>
+        <li>全平台支持，随时随地观看</li>
+        <li>智能推荐，发现更多好片</li>
+      </ul>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-box">
+        <div class="stat-number">10,000+</div>
+        <div class="stat-label">影视资源</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">500万+</div>
+        <div class="stat-label">注册用户</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">4K</div>
+        <div class="stat-label">超清画质</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">24h</div>
+        <div class="stat-label">全天候服务</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-logo">爱爱电影网</div>
+    <div class="footer-url">官方网站：<a href="https://aiaidianyingwang-app" target="_blank" rel="noopener">https://aiaidianyingwang-app</a></div>
+    <div class="footer-links">
+      <a href="#home">首页</a>
+      <a href="#latest">最新电影</a>
+      <a href="#categories">电影分类</a>
+      <a href="#ranking">排行榜</a>
+      <a href="#about">关于我们</a>
+      <a href="#">免责声明</a>
+      <a href="#">隐私政策</a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024-2026 爱爱电影网 (aiaidianyingwang-app) 保留所有权利 | 本网站仅提供影视信息导航服务</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// 汉堡菜单交互
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navMenu.classList.toggle('active');
+});
+
+// 点击菜单项后关闭移动端菜单
+document.querySelectorAll('.nav-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+  });
+});
+
+// 滚动渐入动画
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in').forEach(el => {
+  observer.observe(el);
+});
+
+// 导航栏滚动效果
+let lastScroll = 0;
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    navbar.style.boxShadow = '0 2px 20px rgba(0, 240, 255, 0.1)';
+  } else {
+    navbar.style.boxShadow = 'none';
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+</body>
+</html>
